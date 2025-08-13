@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.edu.infnet.robsonpinto.model.domain.Produto;
 
 @RestController
-@RequestMapping("/api/produto")
+@RequestMapping("/api/produtos")
 public class ProdutoController {
 	
 	@GetMapping
@@ -20,25 +20,5 @@ public class ProdutoController {
 		produto.ativo = true;
 		
 		return produto;
-	}
-	
-	@GetMapping("/nome")
-	public String pegarNome() {
-		return "Doce";
-	}
-	
-	@GetMapping("/descricao")
-	public String pegarDescricao() {
-		return "Doce muito gostoso.";
-	}
-	
-	@GetMapping("/valor")
-	public double pegarValor() {
-		return 20.00;
-	}
-	
-	@GetMapping("/ativo")
-	public boolean pegarAtivo() {
-		return true;
 	}
 }

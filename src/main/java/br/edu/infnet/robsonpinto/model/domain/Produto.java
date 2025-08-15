@@ -1,11 +1,11 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
 public class Produto {
-	public int id;
-	public String nome;
-	public String descricao;
-	public double valor;
-	public boolean ativo;
+	private int id;
+	private String nome;
+	private String descricao;
+	private double valor;
+	private boolean ativo;
 	
 	public GrupoProduto grupoProduto;
 	
@@ -13,9 +13,17 @@ public class Produto {
 	public String toString() {
 		
 		return String.format(
-				"O produto %s, que é um %s está no valor de %.2f e está %s",
-				nome, descricao, valor, ativo ? "disponível" : "indisponível"
+				"O produto com o id %d, %s, que é um %s está no valor de %.2f e está %s",
+				id, nome, descricao, valor, ativo ? "disponível" : "indisponível"
 				);		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {

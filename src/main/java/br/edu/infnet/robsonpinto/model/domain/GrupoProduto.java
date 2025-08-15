@@ -1,11 +1,16 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
 public class GrupoProduto extends Grupo {
-	public String ordemExibicao;
-	public boolean ativo;
+	private String ordemExibicao;
+	private boolean ativo;
 	
 	
-	//TODO Implementar o toString
+	@Override
+	public String toString() {
+		
+		return String.format("%s - %s - %s",
+				super.toString(), ativo ? "Ativo" : "Desativado");
+	}
 	
 	public String getOrdemExibicao() {
 		return ordemExibicao;

@@ -1,14 +1,19 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
 public class GrupoOpcao extends Grupo {
-	public int minimo;
-	public int maximo;
-	public boolean obrigatorio;
-	public int ordemExibicao;
+	private int minimo;
+	private int maximo;
+	private boolean obrigatorio;
+	private int ordemExibicao;
 	
-	public Produto produto;
+	private Produto produto;
 
-	//TODO Implementar o toString
+	@Override
+	public String toString() {
+
+		return String.format("%s - %d - %d - %s - %d - %s",
+				super.toString() ,minimo, maximo, obrigatorio ? "Obrigatório" : "Não obrigatório", ordemExibicao, produto);
+	}
 
 	public int getMinimo() {
 		return minimo;

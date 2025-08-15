@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import br.edu.infnet.robsonpinto.model.domain.Produto;
 
 @Component
-public class VendedorLoader implements ApplicationRunner {
+public class ProdutoLoader implements ApplicationRunner {
 	
 
 	@Override
@@ -26,10 +26,11 @@ public class VendedorLoader implements ApplicationRunner {
 			campos = linha.split(";");
 			
 			Produto produto = new Produto();
-			produto.nome = campos[0];
-			produto.descricao = campos[1];
-			produto.valor = Double.valueOf(campos[2]);
-			produto.ativo = Boolean.valueOf(campos[3]);
+			produto.setId(Integer.valueOf(campos[0]));
+			produto.setNome(campos[1]);
+			produto.setDescricao(campos[2]);
+			produto.setValor(Double.valueOf(campos[3]));
+			produto.setAtivo(Boolean.valueOf(campos[4]));
 			
 			System.out.println(produto);
 			linha = leitura.readLine();

@@ -1,10 +1,10 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
 public class Opcao {
-	public String nome;
-	public int ordemExibicao;
-	public boolean ativo;
-	public Grupo grupo;
+	private String nome;
+	private int ordemExibicao;
+	private boolean ativo;
+	private Grupo grupo;
 	
 	@Override
 	public String toString() {

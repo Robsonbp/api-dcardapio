@@ -1,9 +1,24 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
 public abstract class Grupo {
-	public Integer id;
-	public String nome;
+	private Integer id;
+	private String nome;
 	
+	@Override
+	public String toString() {
+		
+		return String.format("%d - %s",
+				id, nome);
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}

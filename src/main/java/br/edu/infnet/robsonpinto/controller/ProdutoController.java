@@ -5,20 +5,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.infnet.robsonpinto.model.domain.Produto;
+import br.edu.infnet.robsonpinto.model.service.ProdutoService;
 
 @RestController
 @RequestMapping("/api/produtos")
 public class ProdutoController {
 	
+	private final ProdutoService produtoService;
+	
+	public ProdutoController(ProdutoService produtoService) {
+		this.produtoService = produtoService;
+	}
+	
 	@GetMapping
 	public Produto pegarProduto() {
-		Produto produto = new Produto();
-		
-		produto.nome = "Doce";
-		produto.descricao = "Doce muito gostoso.";
-		produto.valor = 20.00;
-		produto.ativo = true;
-		
-		return produto;
+		return produtoService.buscar();
 	}
 }

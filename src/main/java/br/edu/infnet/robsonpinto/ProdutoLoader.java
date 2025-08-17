@@ -8,10 +8,16 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.robsonpinto.model.domain.Produto;
+import br.edu.infnet.robsonpinto.model.service.ProdutoService;
 
 @Component
 public class ProdutoLoader implements ApplicationRunner {
 	
+	private final ProdutoService produtoService;
+	
+	public ProdutoLoader(ProdutoService produtoService) {
+		this.produtoService = produtoService;
+	}
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -33,9 +39,12 @@ public class ProdutoLoader implements ApplicationRunner {
 			produto.setAtivo(Boolean.valueOf(campos[4]));
 			
 			System.out.println(produto);
+			produtoService.criar(produto);
+			
 			linha = leitura.readLine();
 		}
 		
+		System.out.println(produtoService.buscarLista().size());
 		leitura.close();
 	}
 }

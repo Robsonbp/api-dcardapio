@@ -1,6 +1,10 @@
 package br.edu.infnet.robsonpinto.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.stereotype.Service;
 
@@ -8,11 +12,17 @@ import br.edu.infnet.robsonpinto.model.domain.Produto;
 
 @Service
 public class ProdutoService implements CrudService<Produto, Integer> {
-
+	
+	private final Map<Integer, Produto> mapa = new ConcurrentHashMap<Integer, Produto>();
+	private final AtomicInteger nextId = new AtomicInteger(1);
+	
 	@Override
-	public Produto criar(Produto Entity) {
-		// TODO Auto-generated method stub
-		return null;
+	public Produto criar(Produto produto) {
+		
+		produto.setId(nextId.getAndIncrement());
+		mapa.put(produto.getId(), produto);
+		
+		return produto;
 	}
 
 	@Override
@@ -29,14 +39,13 @@ public class ProdutoService implements CrudService<Produto, Integer> {
 
 	@Override
 	public void excluir(Integer id) {
-		// TODO Auto-generated method stub
+		mapa.remove(id);
 		
 	}
 
 	@Override
 	public List<Produto> buscarLista() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Produto>(mapa.values());
 	}
 
 }

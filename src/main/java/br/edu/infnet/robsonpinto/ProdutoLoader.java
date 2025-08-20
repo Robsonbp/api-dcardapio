@@ -7,6 +7,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import br.edu.infnet.robsonpinto.model.domain.GrupoProduto;
 import br.edu.infnet.robsonpinto.model.domain.Produto;
 import br.edu.infnet.robsonpinto.model.service.ProdutoService;
 
@@ -32,11 +33,19 @@ public class ProdutoLoader implements ApplicationRunner {
 			campos = linha.split(";");
 			
 			Produto produto = new Produto();
+			GrupoProduto grupoProduto = new GrupoProduto();
+			
 			produto.setId(Integer.valueOf(campos[0]));
 			produto.setNome(campos[1]);
 			produto.setDescricao(campos[2]);
 			produto.setValor(Double.valueOf(campos[3]));
 			produto.setAtivo(Boolean.valueOf(campos[4]));
+			produto.setGrupoProduto(grupoProduto);
+			
+			grupoProduto.setId(Integer.valueOf(campos[5]));
+			grupoProduto.setNome(campos[6]);
+			grupoProduto.setOrdemExibicao(Integer.valueOf(campos[7]));
+			grupoProduto.setAtivo(Boolean.valueOf(campos[8]));
 			
 			System.out.println(produto);
 			produtoService.criar(produto);

@@ -57,5 +57,13 @@ public class Produto {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+	
+	public GrupoProduto getGrupoProduto() {
+		return grupoProduto;
+	}
+
+	public void setGrupoProduto(GrupoProduto grupoProduto) {
+		this.grupoProduto = grupoProduto;
+	}
 
 }

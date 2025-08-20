@@ -1,7 +1,7 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
 public class GrupoProduto extends Grupo {
-	private String ordemExibicao;
+	private Integer ordemExibicao;
 	private boolean ativo;
 	
 	
@@ -12,10 +12,10 @@ public class GrupoProduto extends Grupo {
 				super.toString(), ativo ? "Ativo" : "Desativado");
 	}
 	
-	public String getOrdemExibicao() {
+	public Integer getOrdemExibicao() {
 		return ordemExibicao;
 	}
-	public void setOrdemExibicao(String ordemExibicao) {
+	public void setOrdemExibicao(Integer ordemExibicao) {
 		this.ordemExibicao = ordemExibicao;
 	}
 	public boolean isAtivo() {

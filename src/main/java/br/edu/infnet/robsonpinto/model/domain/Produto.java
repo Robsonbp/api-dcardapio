@@ -1,7 +1,7 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
 public class Produto {
-	private int id;
+	private Integer id;
 	private String nome;
 	private String descricao;
 	private double valor;
@@ -18,7 +18,7 @@ public class Produto {
 				);		
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

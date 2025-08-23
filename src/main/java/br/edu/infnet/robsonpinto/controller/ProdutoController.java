@@ -2,8 +2,13 @@ package br.edu.infnet.robsonpinto.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,5 +34,25 @@ public class ProdutoController {
 	@GetMapping()
 	public List<Produto> buscarProdutos() {
 		return produtoService.buscarLista();
+	}
+	
+	@PostMapping
+	public Produto criar(@RequestBody Produto produto) {
+		return produtoService.criar(produto);
+	}
+	
+	@PutMapping(value = "/{id}")
+	public Produto alterar(@PathVariable Integer id, @RequestBody Produto produto) {
+		return produtoService.alterar(id, produto);
+	}
+	
+	@PatchMapping(value = "/{id}/inativar")
+	public Produto inativar(@PathVariable Integer id) {
+		return produtoService.inativar(id);
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public void excluir(@PathVariable Integer id) {
+		produtoService.excluir(id);
 	}
 }

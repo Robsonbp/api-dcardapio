@@ -35,7 +35,6 @@ public class ProdutoLoader implements ApplicationRunner {
 			Produto produto = new Produto();
 			GrupoProduto grupoProduto = new GrupoProduto();
 			
-			produto.setId(Integer.valueOf(campos[0]));
 			produto.setNome(campos[1]);
 			produto.setDescricao(campos[2]);
 			produto.setValor(Double.valueOf(campos[3]));
@@ -47,13 +46,13 @@ public class ProdutoLoader implements ApplicationRunner {
 			grupoProduto.setOrdemExibicao(Integer.valueOf(campos[7]));
 			grupoProduto.setAtivo(Boolean.valueOf(campos[8]));
 			
-			System.out.println(produto);
-			produtoService.criar(produto);
+			
+			Produto produtoCriado = produtoService.criar(produto);
+			System.out.println(produtoCriado);
 			
 			linha = leitura.readLine();
 		}
-		
-		System.out.println(produtoService.buscarLista().size());
+
 		leitura.close();
 	}
 }

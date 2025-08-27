@@ -1,11 +1,19 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class GrupoOpcao extends Grupo {
 	private int minimo;
 	private int maximo;
 	private boolean obrigatorio;
 	private int ordemExibicao;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "produto_id")
 	private Produto produto;
 
 	@Override

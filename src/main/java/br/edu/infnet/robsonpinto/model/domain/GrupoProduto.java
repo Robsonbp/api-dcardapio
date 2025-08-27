@@ -1,5 +1,8 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class GrupoProduto extends Grupo {
 	private Integer ordemExibicao;
 	private boolean ativo;

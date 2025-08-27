@@ -2,6 +2,7 @@ package br.edu.infnet.robsonpinto;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.List;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -35,23 +36,25 @@ public class ProdutoLoader implements ApplicationRunner {
 			Produto produto = new Produto();
 			GrupoProduto grupoProduto = new GrupoProduto();
 			
-			produto.setNome(campos[1]);
-			produto.setDescricao(campos[2]);
-			produto.setValor(Double.valueOf(campos[3]));
-			produto.setAtivo(Boolean.valueOf(campos[4]));
+			produto.setNome(campos[0]);
+			produto.setDescricao(campos[1]);
+			produto.setValor(Double.valueOf(campos[2]));
+			produto.setAtivo(Boolean.valueOf(campos[3]));
 			produto.setGrupoProduto(grupoProduto);
 			
-			grupoProduto.setId(Integer.valueOf(campos[5]));
-			grupoProduto.setNome(campos[6]);
-			grupoProduto.setOrdemExibicao(Integer.valueOf(campos[7]));
-			grupoProduto.setAtivo(Boolean.valueOf(campos[8]));
+			grupoProduto.setNome(campos[4]);
+			grupoProduto.setOrdemExibicao(Integer.valueOf(campos[5]));
+			grupoProduto.setAtivo(Boolean.valueOf(campos[6]));
 			
 			
-			Produto produtoCriado = produtoService.criar(produto);
-			System.out.println(produtoCriado);
+			produtoService.criar(produto);
+			//System.out.println(produtoCriado);
 			
 			linha = leitura.readLine();
 		}
+		
+		List<Produto> produtos = produtoService.buscarLista();
+		produtos.forEach(System.out::println);
 
 		leitura.close();
 	}

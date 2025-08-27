@@ -11,9 +11,15 @@ import org.springframework.stereotype.Service;
 import br.edu.infnet.robsonpinto.model.domain.Produto;
 import br.edu.infnet.robsonpinto.model.domain.exceptions.ProdutoInvalidoException;
 import br.edu.infnet.robsonpinto.model.domain.exceptions.ProdutoNaoEncontradoException;
+import br.edu.infnet.robsonpinto.model.repository.ProdutoRepository;
 
 @Service
 public class ProdutoService implements CrudService<Produto, Integer> {
+	
+	private final ProdutoRepository produtoRepository;
+	public ProdutoService(ProdutoRepository produtoRepository) {
+		this.produtoRepository = produtoRepository;
+	}
 	
 	private final Map<Integer, Produto> mapa = new ConcurrentHashMap<Integer, Produto>();
 	private final AtomicInteger nextId = new AtomicInteger(1);
@@ -37,41 +43,30 @@ public class ProdutoService implements CrudService<Produto, Integer> {
 			throw new IllegalArgumentException("Um novo produto não pode ter um id.");
 		}
 		
-		produto.setId(nextId.getAndIncrement());
-		mapa.put(produto.getId(), produto);
-		
-		return produto;
+		return produtoRepository.save(produto);
 	}
 
 	@Override
 	public Produto buscar(Integer id) {
 		
-		Produto produto = mapa.get(id);
-		
-		if (produto == null) {
-			throw new IllegalArgumentException("Não é possível obter o produto pelo id" + id);
+		if (id == null || id <= 0) {
+			throw new IllegalArgumentException("É necessário passar um id para exclusão de um produto.");
 		}
 		
-		return produto;
+		return produtoRepository.findById(id).orElseThrow(() -> new ProdutoNaoEncontradoException("O produto com o id " + id + " não existe."));
 	}
 
 	@Override
 	public void excluir(Integer id) {
 		
-		if (id == null || id == 0) {
-			throw new IllegalArgumentException("É necessário passar um id para exclusão de um produto.");
-		}
+		Produto produto = buscar(id);
+		produtoRepository.delete(produto);
 		
-		if (!mapa.containsKey(id)) {
-			throw new ProdutoNaoEncontradoException("O produto com o id " + id + " não foi encontrado.");
-		}
-		
-		mapa.remove(id);
 	}
 
 	@Override
 	public List<Produto> buscarLista() {
-		return new ArrayList<Produto>(mapa.values());
+		return produtoRepository.findAll();
 	}
 
 	@Override

@@ -65,7 +65,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Big Love\",\r\n    \"descricao\": \"Coração com casca de bombom e massa de bolo com recheio.\",\r\n    \"valor\": 50.0,\r\n    \"ativo\": true,\r\n    \"grupoProduto\": {\r\n        \"id\": 1,\r\n        \"nome\": \"Doces\",\r\n        \"ordemExibicao\": 1,\r\n        \"ativo\": true\r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"Big Love\",\r\n    \"descricao\": \"Coração com casca de bombom e massa de bolo com recheio.\",\r\n    \"valor\": 50.0,\r\n    \"ativo\": true,\r\n    \"grupoProduto\": {\r\n        \"nome\": \"Doces\",\r\n        \"ordemExibicao\": 1,\r\n        \"ativo\": true\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

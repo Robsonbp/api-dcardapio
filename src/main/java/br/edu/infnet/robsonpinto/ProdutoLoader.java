@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import br.edu.infnet.robsonpinto.model.domain.GrupoProduto;
 import br.edu.infnet.robsonpinto.model.domain.Produto;
+import br.edu.infnet.robsonpinto.model.domain.exceptions.ProdutoInvalidoException;
 import br.edu.infnet.robsonpinto.model.service.ProdutoService;
 
 @Component
@@ -47,7 +48,12 @@ public class ProdutoLoader implements ApplicationRunner {
 			grupoProduto.setAtivo(Boolean.valueOf(campos[6]));
 			
 			
-			produtoService.criar(produto);
+			try {
+				produtoService.criar(produto);
+			} catch (ProdutoInvalidoException e) {
+				System.err.println("Erro na inclusão: " + e.getMessage());
+			}
+			
 			//System.out.println(produtoCriado);
 			
 			linha = leitura.readLine();

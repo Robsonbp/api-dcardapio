@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.infnet.robsonpinto.model.domain.Produto;
+import br.edu.infnet.robsonpinto.model.domain.exceptions.ProdutoInvalidoException;
 import br.edu.infnet.robsonpinto.model.service.ProdutoService;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -29,8 +31,11 @@ public class ProdutoController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Produto buscar(@PathVariable Integer id) {
-		return produtoService.buscar(id);
+	public ResponseEntity<Produto> buscar(@PathVariable Integer id) {
+		
+		Produto produto = produtoService.buscar(id);
+		
+		return ResponseEntity.ok(produto);
 	}
 	
 	@GetMapping()
@@ -46,20 +51,32 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Produto> criar(@RequestBody Produto produto) {
+	public ResponseEntity<Produto> criar(@Valid @RequestBody Produto produto) {
 		
-		Produto novoProduto = produtoService.criar(produto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
+		try {
+			Produto novoProduto = produtoService.criar(produto);
+			return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
+		
+		} catch (ProdutoInvalidoException e) {
+			return ResponseEntity.badRequest().build();
+		
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		
 	}
 	
 	@PutMapping(value = "/{id}")
-	public Produto alterar(@PathVariable Integer id, @RequestBody Produto produto) {
-		return produtoService.alterar(id, produto);
+	public ResponseEntity<Produto> alterar(@PathVariable Integer id, @RequestBody Produto produto) {
+		
+		Produto produtoAlterado = produtoService.alterar(id, produto);
+		return ResponseEntity.ok(produtoAlterado);
 	}
 	
 	@PatchMapping(value = "/{id}/inativar")
-	public Produto inativar(@PathVariable Integer id) {
-		return produtoService.inativar(id);
+	public ResponseEntity<Produto> inativar(@PathVariable Integer id) {
+		Produto produto = produtoService.inativar(id);
+		return ResponseEntity.ok(produto);
 	}
 	
 	@DeleteMapping(value = "/{id}")

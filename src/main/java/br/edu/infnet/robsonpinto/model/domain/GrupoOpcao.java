@@ -4,12 +4,27 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class GrupoOpcao extends Grupo {
+	
+	@NotBlank(message = "O mínimo de escolha para esse grupo de opção precisa estar preenchido.")
+	@Min(value = 0, message = "O mínimo de escolha para esse grupo de opções não pode ser menor que zero.")
 	private int minimo;
+	
+	@Min(value = 0, message = "O campo máximo para o grupo de opções não pode ser menor que zero.")
+	@Max(value = 20, message = "O campo máximo para o grupo de opções não pode ser maior que vinte.")
 	private int maximo;
+	
+	@NotBlank(message = "O campo obrigatorio precisa ser preenchido.")
 	private boolean obrigatorio;
+	
+	@NotNull(message = "O campo ordemExibicao precisa ser preenchido.")
+	@Min(value = 0, message = "O campo ordemExibicao não pode ser menor que zero.")
 	private int ordemExibicao;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

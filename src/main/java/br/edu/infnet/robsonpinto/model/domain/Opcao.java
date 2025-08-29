@@ -1,10 +1,23 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class Opcao {
+	@NotBlank(message = "Uma opção precisa ter um nome.")
 	private String nome;
+	
+	@NotNull(message = "É preciso informar a ordem da opção.")
+	@Min(value = 0, message = "O campo ordemExibicao não pode ser menor que zero.")
 	private int ordemExibicao;
+	
+	@NotBlank(message = "É preciso indicar se a opção está ativa ou não.")
 	private boolean ativo;
-	private Grupo grupo;
+	
+	@Valid
+	private GrupoOpcao grupo;
 	
 	@Override
 	public String toString() {
@@ -49,7 +62,7 @@ public class Opcao {
 	}
 
 
-	public void setGrupo(Grupo grupo) {
+	public void setGrupo(GrupoOpcao grupo) {
 		this.grupo = grupo;
 	}
 	

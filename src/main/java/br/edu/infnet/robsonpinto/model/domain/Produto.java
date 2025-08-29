@@ -7,6 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Produto {
@@ -15,9 +19,19 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotBlank(message = "Um produto precisa ter um nome.")
+	@Size(min = 1 ,max = 30, message = "O nome do produto precisa ter entre 1 e 30 caracteres.")
 	private String nome;
+	
+	@Size(max = 255, message = "A descrição do produto não pode ultrapassar 255 caracteres.")
 	private String descricao;
+	
+	@NotBlank
+	@Min(value = 0, message = "O valor do produto não pode ser menor que zero.")
+	@Max(value = 100000, message = "O valor do produto não pode ser maior que 100.000.")
 	private double valor;
+	
+	@NotBlank
 	private boolean ativo;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

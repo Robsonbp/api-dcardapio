@@ -4,6 +4,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @MappedSuperclass
 public abstract class Grupo {
@@ -12,6 +14,8 @@ public abstract class Grupo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotBlank(message = "Um grupo precisa ter um nome.")
+	@Size(min = 1, max = 30, message = "O nome do grupo precisa ter entre 1 e 30 caracteres.")
 	private String nome;
 	
 	@Override

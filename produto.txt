@@ -1,3 +1,4 @@
 Bento Cake;Bolo personalizado.;55.00;true;Doces;1;true
 Palha Italiana;Doce feito à base de brigadeiro e biscoito.;8.00;true;Doces;1;true
 Mini Love;Bombom em formato de coração.;4.00;false;Doces;1;true
+;Bombom em formato de coração.;4.00;false;Doces;1;true

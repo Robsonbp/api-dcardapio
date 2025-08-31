@@ -65,7 +65,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Big Love\",\r\n    \"descricao\": \"Coração com casca de bombom e massa de bolo com recheio.\",\r\n    \"valor\": 50.0,\r\n    \"ativo\": true,\r\n    \"grupoProduto\": {\r\n        \"nome\": \"Doces\",\r\n        \"ordemExibicao\": 1,\r\n        \"ativo\": true\r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"Big Love\",\r\n    \"descricao\": \"Coração com casca de bombom e massa de bolo com recheio.\",\r\n    \"valor\": 50.0,\r\n    \"ativo\": true,\r\n    \"grupoProduto\": {\r\n        \"id\": 1,\r\n        \"nome\": \"Doces\",\r\n        \"ordemExibicao\": 1,\r\n        \"ativo\": true\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -161,6 +161,146 @@
 							"path": [
 								"api",
 								"produtos",
+								"4"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GrupoProduto",
+			"item": [
+				{
+					"name": "BuscarGruposProduto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/grupos-produto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"grupos-produto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarGrupoProduto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/grupos-produto/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"grupos-produto",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CriarGrupoProduto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Novo Grupo\",\r\n    \"ordemExibicao\": 1,\r\n    \"ativo\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/grupos-produto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"grupos-produto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AlterarGrupoProduto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Novo Grupo Alterado\",\r\n    \"ordemExibicao\": 1,\r\n    \"ativo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/grupos-produto/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"grupos-produto",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ExcluirGrupoProduto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/grupos-produto/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"grupos-produto",
 								"4"
 							],
 							"query": [

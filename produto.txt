@@ -1,4 +1,9 @@
-Bento Cake;Bolo personalizado.;55.00;true;Doces;1;true
-Palha Italiana;Doce feito à base de brigadeiro e biscoito.;8.00;true;Doces;1;true
-Mini Love;Bombom em formato de coração.;4.00;false;Doces;1;true
-;Bombom em formato de coração.;4.00;false;Doces;1;true
+Bento Cake;Bolo personalizado.;55.00;true;1
+Palha Italiana;Doce feito à base de brigadeiro e biscoito.;8.00;true;1
+Mini Love;Bombom em formato de coração.;4.00;false;1
+Coxinha;Coxinha crocante com recheio cremoso.;7.50;true;2
+Esfirra;Massa assada macia com recheio suculento.;6.90;true;2
+Empadão;Empadão cremoso que serve 6 porções.;59.90;false;2
+Suco Natural;Suco fresco sem conservantes;8.00;true;3
+Refrigerante Lata;Bebida em lata de 350ml;6.00;true;3
+Água sem Gás;Água mineral natural de 500ml;4.00;true;3

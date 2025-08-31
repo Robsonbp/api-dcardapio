@@ -1,15 +1,23 @@
 package br.edu.infnet.robsonpinto.model.domain;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -26,32 +34,41 @@ public class Produto {
 	@Size(max = 255, message = "A descrição do produto não pode ultrapassar 255 caracteres.")
 	private String descricao;
 	
-	@NotBlank
-	@Min(value = 0, message = "O valor do produto não pode ser menor que zero.")
-	@Max(value = 100000, message = "O valor do produto não pode ser maior que 100.000.")
-	private double valor;
+	@NotNull(message = "O campo valor precisa ser preenchido.")
+	@DecimalMin(value = "0.01", message = "O valor do produto não pode ser menor que zero.")
+	@DecimalMax(value = "999999.99", message = "O valor do produto não pode ser maior que 100.000.")
+	@Digits(integer = 6, fraction = 2, message = "O valor do produto precisa ter 2 casas decimais e no máximo 8 dígitos inteiros.")
+	private BigDecimal valor;
 	
-	@NotBlank
+	@NotNull(message = "O campo ativo precisa ser preenchido.")
 	private boolean ativo;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "grupo_produto_id")
-	public GrupoProduto grupoProduto;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "grupo_produto_id", nullable = false)
+	private GrupoProduto grupoProduto;
+	
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<GrupoOpcao> gruposOpcao = new ArrayList<GrupoOpcao>();
 	
 	@Override
 	public String toString() {
 		
 		return String.format(
-				"O produto com o id %d, %s, que é um %s está no valor de %.2f e está %s",
-				id, nome, descricao, valor, ativo ? "disponível" : "indisponível"
-				);		
+				"produto: id=%d, nome=%s, descricao=%s, valor=R$%.2f, ativo=%s, grupo=%s",
+				id,
+				nome,
+				descricao,
+				valor,
+				ativo ? "disponível" : "indisponível",
+				grupoProduto != null ? String.format("grupoProdutoId=%d, grupoProdutoNome=%s", grupoProduto.getId(), grupoProduto.getNome()) : "N/A"
+		);		
 	}
 
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -71,11 +88,11 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 
@@ -93,6 +110,14 @@ public class Produto {
 
 	public void setGrupoProduto(GrupoProduto grupoProduto) {
 		this.grupoProduto = grupoProduto;
+	}
+
+	public List<GrupoOpcao> getGruposOpcao() {
+		return gruposOpcao;
+	}
+
+	public void setGruposOpcao(List<GrupoOpcao> gruposOpcao) {
+		this.gruposOpcao = gruposOpcao;
 	}
 
 }

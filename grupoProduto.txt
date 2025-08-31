@@ -1,0 +1,3 @@
+Doces;1;true
+Salgados;2;true
+Bebidas;3;true

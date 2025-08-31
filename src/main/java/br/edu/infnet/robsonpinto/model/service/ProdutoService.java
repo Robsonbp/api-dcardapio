@@ -1,10 +1,6 @@
 package br.edu.infnet.robsonpinto.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.stereotype.Service;
 
@@ -12,6 +8,7 @@ import br.edu.infnet.robsonpinto.model.domain.Produto;
 import br.edu.infnet.robsonpinto.model.domain.exceptions.ProdutoInvalidoException;
 import br.edu.infnet.robsonpinto.model.domain.exceptions.ProdutoNaoEncontradoException;
 import br.edu.infnet.robsonpinto.model.repository.ProdutoRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ProdutoService implements CrudService<Produto, Integer> {
@@ -20,9 +17,6 @@ public class ProdutoService implements CrudService<Produto, Integer> {
 	public ProdutoService(ProdutoRepository produtoRepository) {
 		this.produtoRepository = produtoRepository;
 	}
-	
-	private final Map<Integer, Produto> mapa = new ConcurrentHashMap<Integer, Produto>();
-	private final AtomicInteger nextId = new AtomicInteger(1);
 	
 	private void validar(Produto produto) {
 		if (produto == null) {
@@ -35,6 +29,7 @@ public class ProdutoService implements CrudService<Produto, Integer> {
 	}
 	
 	@Override
+	@Transactional
 	public Produto criar(Produto produto) {
 		
 		validar(produto);
@@ -57,6 +52,7 @@ public class ProdutoService implements CrudService<Produto, Integer> {
 	}
 
 	@Override
+	@Transactional
 	public void excluir(Integer id) {
 		
 		Produto produto = buscar(id);
@@ -70,6 +66,7 @@ public class ProdutoService implements CrudService<Produto, Integer> {
 	}
 
 	@Override
+	@Transactional
 	public Produto alterar(Integer id, Produto produto) {
 		
 		if (id == null || id == 0) {
@@ -81,11 +78,10 @@ public class ProdutoService implements CrudService<Produto, Integer> {
 		buscar(id);
 		produto.setId(id);
 		
-		mapa.put(produto.getId(), produto);
-		
-		return produto;
+		return produtoRepository.save(produto);
 	}
 	
+	@Transactional
 	public Produto inativar(Integer id) {
 		if (id == null || id == 0) {
 			throw new IllegalArgumentException("É necessário passar um id para inativação de um produto.");
@@ -99,9 +95,8 @@ public class ProdutoService implements CrudService<Produto, Integer> {
 		}
 		
 		produto.setAtivo(false);
-		mapa.put(id, produto);
 		
-		return produto;
+		return produtoRepository.save(produto);
 		
 		
 	}

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.infnet.robsonpinto.model.domain.Produto;
-import br.edu.infnet.robsonpinto.model.domain.exceptions.ProdutoInvalidoException;
 import br.edu.infnet.robsonpinto.model.service.ProdutoService;
 import jakarta.validation.Valid;
 
@@ -53,17 +52,9 @@ public class ProdutoController {
 	@PostMapping
 	public ResponseEntity<Produto> criar(@Valid @RequestBody Produto produto) {
 		
-		try {
-			Produto novoProduto = produtoService.criar(produto);
-			return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
-		
-		} catch (ProdutoInvalidoException e) {
-			return ResponseEntity.badRequest().build();
-		
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-		
+		Produto novoProduto = produtoService.criar(produto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
+	
 	}
 	
 	@PutMapping(value = "/{id}")

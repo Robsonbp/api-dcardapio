@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.infnet.robsonpinto.model.domain.Opcao;
-import br.edu.infnet.robsonpinto.model.domain.exceptions.GrupoProdutoInvalidoException;
 import br.edu.infnet.robsonpinto.model.service.OpcaoService;
 import jakarta.validation.Valid;
 
@@ -52,17 +51,8 @@ public class OpcaoController {
 	@PostMapping
 	public ResponseEntity<Opcao> criar(@Valid @RequestBody Opcao opcao) {
 		
-		try {
-			Opcao novaOpcao = opcaoService.criar(opcao);
-			return ResponseEntity.status(HttpStatus.CREATED).body(novaOpcao);
-		
-		} catch (GrupoProdutoInvalidoException e) {
-			return ResponseEntity.badRequest().build();
-		
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-		
+		Opcao novaOpcao = opcaoService.criar(opcao);
+		return ResponseEntity.status(HttpStatus.CREATED).body(novaOpcao);
 	}
 	
 	@PutMapping(value = "/{id}")

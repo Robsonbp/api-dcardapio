@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.infnet.robsonpinto.model.domain.GrupoProduto;
-import br.edu.infnet.robsonpinto.model.domain.exceptions.GrupoProdutoInvalidoException;
 import br.edu.infnet.robsonpinto.model.service.GrupoProdutoService;
 import jakarta.validation.Valid;
 
@@ -52,16 +51,8 @@ public class GrupoProdutoController {
 	@PostMapping
 	public ResponseEntity<GrupoProduto> criar(@Valid @RequestBody GrupoProduto grupoProduto) {
 		
-		try {
-			GrupoProduto novoGrupoProduto = grupoProdutoService.criar(grupoProduto);
-			return ResponseEntity.status(HttpStatus.CREATED).body(novoGrupoProduto);
-		
-		} catch (GrupoProdutoInvalidoException e) {
-			return ResponseEntity.badRequest().build();
-		
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		GrupoProduto novoGrupoProduto = grupoProdutoService.criar(grupoProduto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(novoGrupoProduto);
 		
 	}
 	

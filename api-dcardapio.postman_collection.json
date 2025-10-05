@@ -16,12 +16,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/produtos",
+							"raw": "http://localhost:8081/api/produtos",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"api",
 								"produtos"
@@ -36,12 +36,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/produtos/1",
+							"raw": "http://localhost:8081/api/produtos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"api",
 								"produtos",
@@ -65,7 +65,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Big Love\",\r\n    \"descricao\": \"Coração com casca de bombom e massa de bolo com recheio.\",\r\n    \"valor\": 50.0,\r\n    \"ativo\": true,\r\n    \"grupoProduto\": {\r\n        \"id\": 1,\r\n        \"nome\": \"Doces\",\r\n        \"ordemExibicao\": 1,\r\n        \"ativo\": true\r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"Big Love\",\r\n    \"descricao\": \"Coração com casca de bombom e massa de bolo com recheio.\",\r\n    \"valor\": 50.0,\r\n    \"ativo\": true,\r\n    \"grupoProdutoId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -73,12 +73,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/produtos",
+							"raw": "http://localhost:8081/api/produtos",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"api",
 								"produtos"
@@ -94,7 +94,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Big Love Alterado\",\r\n    \"descricao\": \"Círculo com casca de bombom e massa de bolo sem recheio.\",\r\n    \"valor\": 40.0,\r\n    \"ativo\": true,\r\n    \"grupoProduto\": {\r\n        \"id\": 1,\r\n        \"nome\": \"Doces\",\r\n        \"ordemExibicao\": 1,\r\n        \"ativo\": true\r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"Big Love Alterado\",\r\n    \"descricao\": \"Círculo com casca de bombom e massa de bolo sem recheio.\",\r\n    \"valor\": 40.0,\r\n    \"ativo\": true,\r\n    \"grupoProdutoId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -102,12 +102,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/produtos/4",
+							"raw": "http://localhost:8081/api/produtos/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"api",
 								"produtos",
@@ -123,12 +123,12 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/produtos/4/inativar",
+							"raw": "http://localhost:8081/api/produtos/4/inativar",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"api",
 								"produtos",
@@ -152,12 +152,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/produtos/4",
+							"raw": "http://localhost:8081/api/produtos/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"api",
 								"produtos",
@@ -185,12 +185,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/grupos-produto",
+							"raw": "http://localhost:8081/api/grupos-produto",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"api",
 								"grupos-produto"
@@ -242,12 +242,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/grupos-produto",
+							"raw": "http://localhost:8081/api/grupos-produto",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"api",
 								"grupos-produto"
@@ -271,12 +271,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/grupos-produto/4",
+							"raw": "http://localhost:8081/api/grupos-produto/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"api",
 								"grupos-produto",
@@ -292,7 +292,60 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/grupos-produto/4",
+							"raw": "http://localhost:8081/api/grupos-produto/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"grupos-produto",
+								"4"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GrupoOpcao",
+			"item": [
+				{
+					"name": "BuscarGruposOpcao",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/grupos-opcao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"grupos-opcao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarGrupoOpcao",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/grupos-opcao/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -300,7 +353,234 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"grupos-produto",
+								"grupos-opcao",
+								"2"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CriarGrupoOpcao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Novo Grupo de Opção\",\r\n    \"minimo\": 1,\r\n    \"maximo\": 1,\r\n    \"obrigatorio\": true,\r\n    \"ordemExibicao\": 1,\r\n    \"produto\": {\r\n        \"id\": 2,\r\n        \"nome\": \"Palha Italiana\",\r\n        \"descricao\": \"Doce feito à base de brigadeiro e biscoito.\",\r\n        \"valor\": 8.0,\r\n        \"ativo\": true\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/grupos-opcao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"grupos-opcao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AlterarGrupoOpcao",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Novo Grupo de Opção alterado\",\r\n    \"minimo\": 1,\r\n    \"maximo\": 1,\r\n    \"obrigatorio\": true,\r\n    \"ordemExibicao\": 1,\r\n    \"produto\": {\r\n        \"id\": 3\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/grupos-opcao/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"grupos-opcao",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ExcluirGrupoOpcao",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/grupos-opcao/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"grupos-opcao",
+								"3"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Opcao",
+			"item": [
+				{
+					"name": "BuscarOpcoes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/opcoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"opcoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarOpcao",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/opcoes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"opcoes",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CriarOpcao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nova Opção\",\r\n    \"ordemExibicao\": 1,\r\n    \"ativo\": true,\r\n    \"grupoOpcao\": {\r\n        \"id\": 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/opcoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"opcoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AlterarOpcao",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nova Opção alterada.\",\r\n    \"ordemExibicao\": 2,\r\n    \"ativo\": false,\r\n    \"grupoOpcao\": {\r\n        \"id\": 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/opcoes/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"opcoes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ExcluirOpcao",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/opcoes/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"opcoes",
 								"4"
 							],
 							"query": [

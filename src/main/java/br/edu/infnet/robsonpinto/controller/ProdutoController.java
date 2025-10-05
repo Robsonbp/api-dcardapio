@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.infnet.robsonpinto.model.domain.Produto;
+import br.edu.infnet.robsonpinto.model.dto.ProdutoOutputDto;
+import br.edu.infnet.robsonpinto.model.dto.ProdutoRequestDto;
 import br.edu.infnet.robsonpinto.model.service.ProdutoService;
 import jakarta.validation.Valid;
 
@@ -30,17 +31,17 @@ public class ProdutoController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Produto> buscar(@PathVariable Integer id) {
+	public ResponseEntity<ProdutoOutputDto> buscar(@PathVariable Integer id) {
 		
-		Produto produto = produtoService.buscar(id);
+		ProdutoOutputDto produto = produtoService.buscar(id);
 		
 		return ResponseEntity.ok(produto);
 	}
 	
 	@GetMapping()
-	public ResponseEntity<List<Produto>> buscarLista() {
+	public ResponseEntity<List<ProdutoOutputDto>> buscarLista() {
 		
-		List<Produto> produtos = produtoService.buscarLista();
+		List<ProdutoOutputDto> produtos = produtoService.buscarLista();
 		
 		if (produtos.isEmpty()) {
 			return ResponseEntity.noContent().build();
@@ -50,30 +51,28 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Produto> criar(@Valid @RequestBody Produto produto) {
+	public ResponseEntity<ProdutoOutputDto> criar(@Valid @RequestBody ProdutoRequestDto produto) {
 		
-		Produto novoProduto = produtoService.criar(produto);
+		ProdutoOutputDto novoProduto = produtoService.criar(produto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
-	
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Produto> alterar(@PathVariable Integer id, @RequestBody Produto produto) {
+	public ResponseEntity<ProdutoOutputDto> alterar(@PathVariable Integer id, @RequestBody ProdutoRequestDto produto) {
 		
-		Produto produtoAlterado = produtoService.alterar(id, produto);
+		ProdutoOutputDto produtoAlterado = produtoService.alterar(id, produto);
 		return ResponseEntity.ok(produtoAlterado);
 	}
 	
 	@PatchMapping(value = "/{id}/inativar")
-	public ResponseEntity<Produto> inativar(@PathVariable Integer id) {
-		Produto produto = produtoService.inativar(id);
+	public ResponseEntity<ProdutoOutputDto> inativar(@PathVariable Integer id) {
+		ProdutoOutputDto produto = produtoService.inativar(id);
 		return ResponseEntity.ok(produto);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> excluir(@PathVariable Integer id) {
 		produtoService.excluir(id);
-		
 		return ResponseEntity.noContent().build();
 	}
 }

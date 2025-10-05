@@ -4,21 +4,29 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.edu.infnet.robsonpinto.model.domain.GrupoProduto;
 import br.edu.infnet.robsonpinto.model.domain.Produto;
+import br.edu.infnet.robsonpinto.model.domain.exceptions.GrupoProdutoInvalidoException;
 import br.edu.infnet.robsonpinto.model.domain.exceptions.ProdutoInvalidoException;
 import br.edu.infnet.robsonpinto.model.domain.exceptions.ProdutoNaoEncontradoException;
+import br.edu.infnet.robsonpinto.model.dto.ProdutoOutputDto;
+import br.edu.infnet.robsonpinto.model.dto.ProdutoRequestDto;
+import br.edu.infnet.robsonpinto.model.repository.GrupoProdutoRepository;
 import br.edu.infnet.robsonpinto.model.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class ProdutoService implements CrudService<Produto, Integer> {
+public class ProdutoService {
 	
 	private final ProdutoRepository produtoRepository;
-	public ProdutoService(ProdutoRepository produtoRepository) {
+	private final GrupoProdutoRepository grupoProdutoRepository;
+	
+	public ProdutoService(ProdutoRepository produtoRepository, GrupoProdutoRepository grupoProdutoRepository) {
 		this.produtoRepository = produtoRepository;
+		this.grupoProdutoRepository = grupoProdutoRepository;
 	}
 	
-	private void validar(Produto produto) {
+	private void validar(ProdutoRequestDto produto) {
 		if (produto == null) {
 			throw new IllegalArgumentException("O produto não pode estar nulo.");
 		}
@@ -28,77 +36,90 @@ public class ProdutoService implements CrudService<Produto, Integer> {
 		}
 	}
 	
-	@Override
 	@Transactional
-	public Produto criar(Produto produto) {
+	public ProdutoOutputDto criar(ProdutoRequestDto produtoEntrada) {
 		
-		validar(produto);
+		validar(produtoEntrada);
 		
-		if (produto.getId() != null && produto.getId() != 0) {
-			throw new IllegalArgumentException("Um novo produto não pode ter um id.");
-		}
+		GrupoProduto grupoProduto = grupoProdutoRepository.findById(produtoEntrada.getGrupoProdutoId()).orElseThrow(() -> new GrupoProdutoInvalidoException("Grupo produto vinculado não existe."));
 		
-		return produtoRepository.save(produto);
+		Produto produto = new Produto();
+		produto.setNome(produtoEntrada.getNome());
+		produto.setDescricao(produtoEntrada.getDescricao());
+		produto.setValor(produtoEntrada.getValor());
+		produto.setAtivo(produtoEntrada.isAtivo());
+		produto.setGrupoProduto(grupoProduto);
+		
+		
+		Produto produtoCriado = produtoRepository.save(produto);		
+		
+		return new ProdutoOutputDto(produtoCriado);
 	}
 
-	@Override
-	public Produto buscar(Integer id) {
+	public ProdutoOutputDto buscar(Integer id) {
 		
 		if (id == null || id <= 0) {
 			throw new IllegalArgumentException("É necessário passar um id para exclusão de um produto.");
 		}
 		
-		return produtoRepository.findById(id).orElseThrow(() -> new ProdutoNaoEncontradoException("O produto com o id " + id + " não existe."));
+		Produto produtoBuscado = produtoRepository.findById(id).orElseThrow(() -> new ProdutoNaoEncontradoException("O produto com o id " + id + " não existe."));
+		
+		return new ProdutoOutputDto(produtoBuscado);
 	}
 
-	@Override
 	@Transactional
 	public void excluir(Integer id) {
 		
-		Produto produto = buscar(id);
+		Produto produto = produtoRepository.findById(id).orElseThrow(() -> new ProdutoNaoEncontradoException("O produto com o id " + id + " não existe."));
 		produtoRepository.delete(produto);
 		
 	}
 
-	@Override
-	public List<Produto> buscarLista() {
-		return produtoRepository.findAll();
+	public List<ProdutoOutputDto> buscarLista() {
+		
+		List<Produto> produtos = produtoRepository.findAll();
+		
+		return produtos.stream().map(ProdutoOutputDto::new).toList();
 	}
 
-	@Override
 	@Transactional
-	public Produto alterar(Integer id, Produto produto) {
+	public ProdutoOutputDto alterar(Integer id, ProdutoRequestDto produtoEntrada) {
 		
 		if (id == null || id == 0) {
 			throw new IllegalArgumentException("É necessário passar um id para alteração de um produto.");
 		}
 		
-		validar(produto);
+		validar(produtoEntrada);
+		GrupoProduto grupoProduto = grupoProdutoRepository.findById(produtoEntrada.getGrupoProdutoId()).orElseThrow(() -> new GrupoProdutoInvalidoException("Grupo produto vinculado não existe."));
 		
-		buscar(id);
-		produto.setId(id);
+		Produto produto = produtoRepository.findById(id).orElseThrow(() -> new ProdutoNaoEncontradoException("O produto com o id " + id + " não existe."));
+		produto.setNome(produtoEntrada.getNome());
+		produto.setDescricao(produtoEntrada.getDescricao());
+		produto.setValor(produtoEntrada.getValor());
+		produto.setAtivo(produtoEntrada.isAtivo());
+		produto.setGrupoProduto(grupoProduto);
 		
-		return produtoRepository.save(produto);
+		Produto produtoAtualizado = produtoRepository.save(produto);
+		
+		return new ProdutoOutputDto(produtoAtualizado);
 	}
 	
 	@Transactional
-	public Produto inativar(Integer id) {
+	public ProdutoOutputDto inativar(Integer id) {
 		if (id == null || id == 0) {
 			throw new IllegalArgumentException("É necessário passar um id para inativação de um produto.");
 		}
 		
-		Produto produto = buscar(id);
+		Produto produto = produtoRepository.findById(id).orElseThrow(() -> new ProdutoNaoEncontradoException("O produto com o id " + id + " não existe."));
 		
 		if(!produto.isAtivo()) {
-			System.out.println("O produto" + produto.getNome() + "já está desativado");
-			return produto;
+			return new ProdutoOutputDto(produto);
 		}
 		
 		produto.setAtivo(false);
+		Produto produtoInativado = produtoRepository.save(produto);
 		
-		return produtoRepository.save(produto);
-		
-		
+		return new ProdutoOutputDto(produtoInativado);
 	}
 
 }

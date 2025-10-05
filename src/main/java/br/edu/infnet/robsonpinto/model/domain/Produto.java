@@ -50,6 +50,7 @@ public class Produto {
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<GrupoOpcao> gruposOpcao = new ArrayList<GrupoOpcao>();
 	
+	
 	@Override
 	public String toString() {
 		

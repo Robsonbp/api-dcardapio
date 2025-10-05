@@ -9,7 +9,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.robsonpinto.model.domain.GrupoProduto;
+import br.edu.infnet.robsonpinto.model.dto.GrupoProdutoOutputDto;
+import br.edu.infnet.robsonpinto.model.dto.GrupoProdutoRequestDto;
 import br.edu.infnet.robsonpinto.model.service.GrupoProdutoService;
 import jakarta.transaction.Transactional;
 
@@ -36,7 +37,7 @@ public class GrupoProdutoLoader implements ApplicationRunner {
 		while(linha != null) {
 			campos = linha.split(";");
 			
-			GrupoProduto grupoProduto = new GrupoProduto();
+			GrupoProdutoRequestDto grupoProduto = new GrupoProdutoRequestDto();
 			
 			grupoProduto.setNome(campos[0]);
 			grupoProduto.setOrdemExibicao(Integer.valueOf(campos[1]));
@@ -51,7 +52,7 @@ public class GrupoProdutoLoader implements ApplicationRunner {
 			linha = leitura.readLine();
 		}
 		
-		List<GrupoProduto> gruposProduto = grupoProdutoService.buscarLista();
+		List<GrupoProdutoOutputDto> gruposProduto = grupoProdutoService.buscarLista();
 		gruposProduto.forEach(System.out::println);
 
 		leitura.close();

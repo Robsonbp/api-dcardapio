@@ -10,10 +10,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.robsonpinto.model.domain.GrupoProduto;
-import br.edu.infnet.robsonpinto.model.domain.Produto;
 import br.edu.infnet.robsonpinto.model.domain.exceptions.ProdutoInvalidoException;
-import br.edu.infnet.robsonpinto.model.service.GrupoProdutoService;
+import br.edu.infnet.robsonpinto.model.dto.ProdutoOutputDto;
+import br.edu.infnet.robsonpinto.model.dto.ProdutoRequestDto;
 import br.edu.infnet.robsonpinto.model.service.ProdutoService;
 import jakarta.transaction.Transactional;
 
@@ -23,11 +22,9 @@ import jakarta.transaction.Transactional;
 public class ProdutoLoader implements ApplicationRunner {
 	
 	private final ProdutoService produtoService;
-	private final GrupoProdutoService grupoProdutoService;
 	
-	public ProdutoLoader(ProdutoService produtoService, GrupoProdutoService grupoProdutoService) {
+	public ProdutoLoader(ProdutoService produtoService) {
 		this.produtoService = produtoService;
-		this.grupoProdutoService = grupoProdutoService;
 	}
 
 	@Override
@@ -49,27 +46,13 @@ public class ProdutoLoader implements ApplicationRunner {
 			Boolean ativo = Boolean.valueOf(campos[3]);
 			Integer idGrupo = Integer.valueOf(campos[4]);
 			
-			GrupoProduto grupoProduto = null;
-			
-			try {
-				grupoProduto = grupoProdutoService.buscar(idGrupo);
-				if (grupoProduto == null) {
-					System.err.println("O produto " + nome + " não pode ser cadastrado, pois o grupo de produto com id " + idGrupo + " não foi encontrado.");
-					linha = leitura.readLine();
-					continue;
-				}
-			} catch (Exception e) {
-				linha = leitura.readLine();
-				continue;
-			}
-			
-			Produto produto = new Produto();
+			ProdutoRequestDto produto = new ProdutoRequestDto();
 			
 			produto.setNome(nome);
 			produto.setDescricao(descricao);
 			produto.setValor(valor);
 			produto.setAtivo(ativo);
-			produto.setGrupoProduto(grupoProduto);
+			produto.setGrupoProdutoId(idGrupo);
 			
 			
 			try {
@@ -81,7 +64,7 @@ public class ProdutoLoader implements ApplicationRunner {
 			linha = leitura.readLine();
 		}
 		
-		List<Produto> produtos = produtoService.buscarLista();
+		List<ProdutoOutputDto> produtos = produtoService.buscarLista();
 		produtos.forEach(System.out::println);
 
 		leitura.close();

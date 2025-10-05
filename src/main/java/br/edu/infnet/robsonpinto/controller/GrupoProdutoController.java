@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.infnet.robsonpinto.model.domain.GrupoProduto;
+import br.edu.infnet.robsonpinto.model.dto.GrupoProdutoOutputDto;
+import br.edu.infnet.robsonpinto.model.dto.GrupoProdutoRequestDto;
 import br.edu.infnet.robsonpinto.model.service.GrupoProdutoService;
 import jakarta.validation.Valid;
 
@@ -29,17 +30,17 @@ public class GrupoProdutoController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<GrupoProduto> buscar(@PathVariable Integer id) {
+	public ResponseEntity<GrupoProdutoOutputDto> buscar(@PathVariable Integer id) {
 		
-		GrupoProduto produto = grupoProdutoService.buscar(id);
+		GrupoProdutoOutputDto produto = grupoProdutoService.buscar(id);
 		
 		return ResponseEntity.ok(produto);
 	}
 	
 	@GetMapping()
-	public ResponseEntity<List<GrupoProduto>> buscarLista() {
+	public ResponseEntity<List<GrupoProdutoOutputDto>> buscarLista() {
 		
-		List<GrupoProduto> produtos = grupoProdutoService.buscarLista();
+		List<GrupoProdutoOutputDto> produtos = grupoProdutoService.buscarLista();
 		
 		if (produtos.isEmpty()) {
 			return ResponseEntity.noContent().build();
@@ -49,17 +50,17 @@ public class GrupoProdutoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<GrupoProduto> criar(@Valid @RequestBody GrupoProduto grupoProduto) {
+	public ResponseEntity<GrupoProdutoOutputDto> criar(@Valid @RequestBody GrupoProdutoRequestDto grupoProduto) {
 		
-		GrupoProduto novoGrupoProduto = grupoProdutoService.criar(grupoProduto);
+		GrupoProdutoOutputDto novoGrupoProduto = grupoProdutoService.criar(grupoProduto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoGrupoProduto);
 		
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<GrupoProduto> alterar(@PathVariable Integer id, @RequestBody GrupoProduto grupoProduto) {
+	public ResponseEntity<GrupoProdutoOutputDto> alterar(@PathVariable Integer id, @RequestBody GrupoProdutoRequestDto grupoProduto) {
 		
-		GrupoProduto grupoProdutoAlterado = grupoProdutoService.alterar(id, grupoProduto);
+		GrupoProdutoOutputDto grupoProdutoAlterado = grupoProdutoService.alterar(id, grupoProduto);
 		return ResponseEntity.ok(grupoProdutoAlterado);
 	}
 	
